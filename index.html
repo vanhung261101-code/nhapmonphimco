@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="vi" data-type="product" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Góc Đồ Phím – Nhập Môn Phím Cơ</title>
+<meta name="description" content="Phím cơ đầu tiên, Nhập Môn Phím Cơ chọn sẵn: bàn phím, switch, keycap đã review trên kênh, lọc theo nhu cầu và tầm giá.">
+<meta name="page-type" content="product">
+<meta name="site-kind" content="tech">
+<meta property="og:title" content="Đừng mua bàn phím cơ đầu tiên trước khi xem trang này">
+<meta property="og:description" content="Bàn phím, switch, keycap Nhập Môn Phím Cơ đã review. Lọc theo nhu cầu và tầm giá, bấm là ra Shopee.">
+<meta property="og:image" content="https://vanhung261101-code.github.io/nhapmonphimco/assets/hero.jpg">
+<meta property="og:url" content="https://vanhung261101-code.github.io/nhapmonphimco/">
+<link rel="canonical" href="https://vanhung261101-code.github.io/nhapmonphimco/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#140A0C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="preload" as="image" href="assets/hero.jpg">
+<style>
+/* Kind: tech/product. Ngôn ngữ hình ảnh: màn đầu tối với quầng sáng đỏ hắt từ dưới (đỏ của bàn phím Game Over),
+   tiêu đề lớn căn giữa, menu kính mờ dạng viên thuốc, khung xem trước viền dày phát sáng có tab đổi nội dung;
+   phần thân nền sáng, panel bo lớn với vùng ảnh phát sáng và dấu "+" ở góc như bản vẽ kỹ thuật;
+   moment: bánh xe nhu cầu cuộn theo trang, mục ở giữa đỏ, chạm để lọc kệ hàng. */
+:root{
+  --night:#140A0C; --night-2:#1E1012;
+  --paper:#F4F3F1; --surface:#FFFFFF; --ink:#16110F; --muted:#6B6460; --line:#E3DEDA;
+  --red:#D3263A; --red-2:#FF4A55; --red-press:#A91B2C; --glow:#FFD9D6;
+  --teal:#2F9E8F; --teal-ink:#FFFFFF;
+  --tag:#F1EEEB; --skirt:#CFC8C3;
+  --on-night:#FBF6F4; --on-night-muted:#C9B9B6;
+  --f-display:"Be Vietnam Pro", system-ui, sans-serif;
+  --f-body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+  --r-lg:28px; --r:16px;
+  --ease:cubic-bezier(.2,.8,.2,1); --ease-enter:cubic-bezier(.22,1,.36,1);
+  --gut-l:max(16px, env(safe-area-inset-left, 0px)); --gut-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#100C0C; --surface:#1A1415; --ink:#F4EEEC; --muted:#A99F9C; --line:#2E2526;
+    --glow:#3A1518; --tag:#251D1E; --skirt:#050303; --teal:#36B3A2; --teal-ink:#07110F;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#100C0C; --surface:#1A1415; --ink:#F4EEEC; --muted:#A99F9C; --line:#2E2526;
+  --glow:#3A1518; --tag:#251D1E; --skirt:#050303; --teal:#36B3A2; --teal-ink:#07110F;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:160px}
+body{margin:0; background:var(--paper); color:var(--ink); font:16px/1.55 var(--f-body)}
+img,video{max-width:100%; display:block}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance}
+.wrap{max-width:1120px; margin:0 auto; padding-left:var(--gut-l); padding-right:var(--gut-r)}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.skip{position:absolute; left:16px; top:-60px; z-index:60; background:var(--red); color:#fff; padding:12px 16px; border-radius:12px; text-decoration:none; font-weight:700}
+.skip:focus{top:calc(12px + env(safe-area-inset-top, 0px))}
+:focus-visible{outline:2px solid var(--red); outline-offset:2px}
+
+/* ---------- nút ---------- */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:52px; padding:0 22px; border-radius:999px; border:0; cursor:pointer;
+  font:700 15.5px/1 var(--f-body); text-decoration:none; background:var(--red); color:#fff;
+  box-shadow:0 10px 30px -8px rgba(211,38,58,.7), inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform 150ms var(--ease), background-color 150ms var(--ease), box-shadow 150ms var(--ease)}
+.btn svg{width:18px; height:18px; flex:none; transition:transform 150ms var(--ease)}
+.btn--glass{background:rgba(255,255,255,.08); color:var(--on-night); border:1px solid rgba(255,255,255,.2); box-shadow:inset 0 1px 0 rgba(255,255,255,.12); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)}
+.btn--ink{background:var(--ink); color:var(--paper); box-shadow:0 10px 24px -10px rgba(22,17,15,.55)}
+.btn:active{transform:translateY(1px) scale(.985); transition-duration:90ms}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{transform:translateY(-1px); background:#BF2133}
+  .btn--glass:hover{background:rgba(255,255,255,.14)}
+  .btn--ink:hover{background:#2C2421}
+  .btn:hover svg{transform:translateX(3px)}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative; color:var(--on-night); overflow:visible; isolation:isolate; z-index:1;
+  background:
+    radial-gradient(90% 55% at 50% 100%, rgba(255,74,85,.95) 0%, rgba(211,38,58,.75) 22%, rgba(120,20,30,.55) 45%, rgba(20,10,12,0) 75%),
+    radial-gradient(60% 40% at 50% 0%, rgba(255,255,255,.05), transparent 70%),
+    var(--night);
+  padding-top:calc(12px + env(safe-area-inset-top, 0px))}
+.hero::before{content:""; position:absolute; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size:44px 44px; mask-image:radial-gradient(80% 60% at 50% 30%, #000 30%, transparent 80%); -webkit-mask-image:radial-gradient(80% 60% at 50% 30%, #000 30%, transparent 80%)}
+.nav{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 6px 6px 12px; border-radius:999px;
+  background:rgba(30,16,18,.55); border:1px solid rgba(255,255,255,.12); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:0 8px 30px -12px rgba(0,0,0,.6)}
+.brand{display:flex; align-items:center; gap:9px; text-decoration:none; min-height:44px; min-width:0}
+.brand img{width:30px; height:30px; border-radius:9px}
+.brand b{font:700 14px/1.1 var(--f-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.nav__links{display:none; gap:22px; font-size:14px; color:var(--on-night-muted)}
+.nav__links a{text-decoration:none; padding:10px 0; transition:color 150ms var(--ease)}
+.nav__links a:hover{color:#fff}
+.chipbtn{display:inline-flex; align-items:center; gap:7px; min-height:40px; padding:0 13px; border-radius:999px; background:#fff; color:#16110F; text-decoration:none; font:700 13px var(--f-body); transition:transform 150ms var(--ease)}
+.chipbtn svg{width:15px; height:15px}
+.chipbtn:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){ .chipbtn:hover{transform:translateY(-1px)} }
+
+.hero__body{display:flex; flex-direction:column; align-items:center; text-align:center; gap:18px; padding-top:40px}
+.notice{display:inline-flex; align-items:center; gap:8px; padding:5px 12px 5px 5px; border-radius:999px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14);
+  font:500 13px/1.2 var(--f-body); color:#EADCD9; text-decoration:none; transition:background-color 150ms var(--ease)}
+.notice img{width:24px; height:24px; border-radius:999px}
+.notice b{color:#fff}
+.notice svg{width:13px; height:13px; transition:transform 150ms var(--ease)}
+@media (hover:hover) and (pointer:fine){ .notice:hover{background:rgba(255,255,255,.12)} .notice:hover svg{transform:translateX(3px)} }
+.hero h1{font:800 clamp(33px, 9.4vw, 76px)/1.02 var(--f-display); letter-spacing:-.045em; max-width:15ch}
+.hero h1 i{font-style:italic; font-weight:700; color:var(--red-2); letter-spacing:-.03em; padding-right:.05em}
+.lead{font-size:16.5px; line-height:1.5; color:#E6D7D4; max-width:34ch}
+.lead b{color:#fff}
+.actions{display:flex; flex-direction:column; gap:10px; width:100%; max-width:360px}
+
+/* khung xem trước có tab, viền dày, phát sáng */
+.stage{margin-top:30px; display:flex; flex-direction:column; align-items:center; gap:14px; padding-bottom:0}
+.seg{display:inline-flex; gap:4px; padding:4px; border-radius:999px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)}
+.seg button{min-height:40px; padding:0 15px; border-radius:999px; border:0; background:transparent; color:#F1E3E0; font:600 13.5px var(--f-body); cursor:pointer; transition:background-color 200ms var(--ease), color 200ms var(--ease)}
+.seg button[aria-selected="true"]{background:#fff; color:#16110F}
+/* video dọc kiểu màn hình TikTok + chibi 3D của kênh ló ra bên trái */
+.duo{position:relative; width:min(100%, 440px); margin-bottom:-110px}
+.duo::before{content:""; position:absolute; left:-10%; bottom:8%; width:70%; aspect-ratio:1/1; border-radius:50%; z-index:0; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(255,74,85,.55), rgba(255,74,85,0))}
+.frame{position:relative; z-index:1; width:60%; aspect-ratio:9/16; margin-left:auto; border-radius:32px; padding:7px; background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.75));
+  box-shadow:0 40px 90px -20px rgba(255,74,85,.75), 0 0 0 1px rgba(255,255,255,.4); max-width:100%}
+.frame__in{position:relative; width:100%; height:100%; border-radius:26px; overflow:hidden; background:#000}
+.frame__in > *{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 400ms var(--ease)}
+.frame__in > .on{opacity:1}
+.frame__in::after{content:""; position:absolute; left:50%; top:9px; width:64px; height:18px; transform:translateX(-50%); border-radius:999px; background:#000; z-index:2}
+.chibi{position:absolute; z-index:2; left:-4%; bottom:0; width:58%; height:auto; pointer-events:none;
+  filter:drop-shadow(0 18px 28px rgba(60,8,14,.45));
+  mask-image:linear-gradient(180deg, #000 80%, transparent 100%); -webkit-mask-image:linear-gradient(180deg, #000 80%, transparent 100%)}
+.bubble{position:absolute; z-index:3; left:0; top:13%; max-width:56%; padding:10px 13px; border-radius:16px 16px 16px 4px; background:#fff; color:#16110F;
+  font:700 13.5px/1.3 var(--f-body); box-shadow:0 12px 30px -10px rgba(0,0,0,.45); text-align:left}
+.bubble::after{content:""; position:absolute; left:18px; bottom:-7px; width:14px; height:14px; background:#fff; transform:rotate(45deg); border-radius:0 0 4px 0}
+.vid-ctl{position:absolute; right:14px; bottom:14px; z-index:3; width:40px; height:40px; border-radius:50%; border:0; background:rgba(20,10,12,.62); color:#fff; display:grid; place-items:center; cursor:pointer; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
+.vid-ctl svg{width:14px; height:14px}
+.after-hero{height:140px}
+
+/* hero entrance */
+.w{display:inline-block; overflow:hidden; vertical-align:top; padding-bottom:.1em; margin-bottom:-.1em}
+.w > span{display:inline-block}
+html.m-enter:not(.m-enter-done) .hero h1 .w > span{transform:translateY(110%)}
+html.m-enter:not(.m-enter-done) .hero [data-up]{opacity:0; transform:translateY(12px)}
+.hero.is-entering h1 .w > span{animation:rise 700ms var(--ease-enter) both; animation-delay:calc(var(--ln, 0) * 80ms)}
+.hero.is-entering [data-up]{animation:up 520ms var(--ease-enter) both; animation-delay:calc(380ms + var(--i, 0) * 60ms)}
+.hero.is-entering .frame{animation:settle 1100ms var(--ease-enter) both}
+.hero.is-entering .chibi{animation:peek 900ms var(--ease-enter) 250ms both}
+.hero.is-entering .bubble{animation:up 520ms var(--ease-enter) 700ms both}
+@keyframes peek{from{transform:translateX(-14px) scale(.96); opacity:0} to{transform:none; opacity:1}}
+@keyframes rise{from{transform:translateY(110%)} to{transform:none}}
+@keyframes up{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
+@keyframes settle{from{transform:scale(.98)} to{transform:none}}
+
+/* ---------- sections ---------- */
+.sec{padding-block:64px}
+.kicker{font:700 12.5px/1 var(--f-body); color:var(--red); letter-spacing:.01em}
+.h2{font:800 clamp(30px, 8.4vw, 56px)/1.04 var(--f-display); letter-spacing:-.04em}
+.h2 i{font-style:italic; font-weight:700; color:var(--red)}
+.sec-head{display:flex; flex-direction:column; gap:12px; margin-bottom:28px; align-items:center; text-align:center}
+.sec-head p{color:var(--muted); max-width:44ch}
+
+/* panel lựa chọn của mình */
+.picks{display:grid; gap:16px}
+.panel{display:grid; gap:0; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; text-decoration:none;
+  box-shadow:0 1px 0 rgba(0,0,0,.02), 0 20px 40px -30px rgba(60,20,20,.35);
+  transition:transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease)}
+.panel__vis{position:relative; margin:10px; border-radius:20px; aspect-ratio:5/4; max-width:100%; display:grid; place-items:center; overflow:hidden;
+  background:radial-gradient(70% 70% at 50% 100%, rgba(255,74,85,.55) 0%, rgba(255,140,130,.25) 38%, transparent 70%), linear-gradient(180deg, var(--surface), var(--glow))}
+.panel__vis::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:linear-gradient(rgba(211,38,58,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(211,38,58,.09) 1px, transparent 1px); background-size:32px 32px;
+  mask-image:radial-gradient(70% 70% at 50% 60%, #000 20%, transparent 75%); -webkit-mask-image:radial-gradient(70% 70% at 50% 60%, #000 20%, transparent 75%)}
+.cross{position:absolute; width:11px; height:11px; color:var(--red); opacity:.55}
+.cross::before,.cross::after{content:""; position:absolute; background:currentColor}
+.cross::before{left:5px; top:0; width:1px; height:11px}
+.cross::after{top:5px; left:0; height:1px; width:11px}
+.cross.tl{left:12px; top:12px} .cross.tr{right:12px; top:12px} .cross.bl{left:12px; bottom:12px} .cross.br{right:12px; bottom:12px}
+.panel__img{position:relative; width:62%; aspect-ratio:1/1; border-radius:18px; overflow:hidden; background:#fff; box-shadow:0 24px 50px -18px rgba(120,20,30,.55), 0 0 0 1px rgba(0,0,0,.04); max-width:100%}
+.panel__img img{width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease)}
+.panel__no{position:absolute; right:18px; top:16px; font:700 12px var(--f-mono); color:var(--red); opacity:.85}
+.panel__bd{padding:8px 22px 22px; display:flex; flex-direction:column; gap:10px}
+.panel__lbl{font:700 13px var(--f-body); color:var(--red)}
+.panel__nm{font:800 26px/1.1 var(--f-display); letter-spacing:-.03em}
+.panel__why{color:var(--muted); font-size:15px; line-height:1.5}
+.panel__fact{align-self:flex-start; display:inline-flex; align-items:center; gap:8px; font:500 12.5px var(--f-mono); background:var(--tag); color:var(--ink); padding:7px 10px; border-radius:10px}
+.panel__fact i{width:6px; height:6px; border-radius:50%; background:var(--teal); flex:none}
+.panel__ft{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:6px; flex-wrap:wrap}
+.price{font:700 22px var(--f-mono); letter-spacing:-.02em; color:var(--ink); font-variant-numeric:tabular-nums}
+.price s{font:500 13px var(--f-mono); color:var(--muted); margin-left:6px}
+.unit{font:500 13px var(--f-mono); color:var(--muted)}
+.panel .btn{min-height:46px; padding:0 18px; font-size:14.5px}
+@media (hover:hover) and (pointer:fine){
+  .panel:hover,.card:hover,.tile:hover{transform:translateY(-2px); box-shadow:0 24px 44px -26px rgba(60,20,20,.45)}
+  .panel:hover .panel__img img,.card:hover .card__ph img,.tile:hover img{transform:scale(1.03)}
+}
+
+/* moment: bánh xe nhu cầu */
+.wheel{position:relative}
+.wheel__track{height:calc(var(--n, 8) * 34svh + 100svh)}
+.wheel__stick{position:sticky; top:0; height:100svh; display:flex; flex-direction:column; justify-content:center; overflow:hidden}
+.wheel__head{text-align:center; display:flex; flex-direction:column; gap:10px; align-items:center; padding-bottom:18px}
+.wheel__view{position:relative; height:min(52svh, 440px)}
+.wheel__view::before{content:""; position:absolute; left:var(--gut-l); right:var(--gut-r); top:50%; height:64px; transform:translateY(-50%); border-block:1px solid var(--line);
+  background:radial-gradient(60% 120% at 50% 50%, color-mix(in srgb, var(--red) 10%, transparent), transparent 70%)}
+.wheel__mark{position:absolute; top:50%; transform:translateY(-50%); width:0; height:0; border-block:6px solid transparent}
+.wheel__mark.l{left:6px; border-left:8px solid var(--red)} .wheel__mark.r{right:6px; border-right:8px solid var(--red)}
+.wheel__list{list-style:none; margin:0; padding:0; position:absolute; left:0; right:0; top:50%; will-change:transform}
+.wheel__list li{height:64px; display:flex; align-items:center; justify-content:center; text-align:center; padding-inline:28px}
+.wheel__list button{all:unset; cursor:pointer; font:800 clamp(24px, 7vw, 46px)/1 var(--f-display); letter-spacing:-.035em; color:var(--ink); white-space:nowrap;
+  transform:scale(var(--s, .8)); opacity:var(--o, .25); transition:color 160ms linear}
+.wheel__list button i{font-style:italic; font-weight:700}
+.wheel__list li.on button{color:var(--red)}
+.wheel__list button:focus-visible{outline:2px solid var(--red); outline-offset:6px; border-radius:6px}
+.wheel__foot{display:flex; justify-content:space-between; align-items:center; gap:12px; padding-top:18px}
+.wheel__count{font:700 13px var(--f-mono); color:var(--muted)} .wheel__count b{color:var(--red)}
+.wheel__go{min-height:44px}
+
+/* tiles */
+.tiles{display:grid; gap:12px; grid-template-columns:repeat(2, minmax(0,1fr))}
+.tile{position:relative; display:block; border-radius:var(--r-lg); overflow:hidden; text-decoration:none; color:#fff; background:var(--night); aspect-ratio:4/5; max-width:100%;
+  transition:transform 180ms var(--ease), box-shadow 180ms var(--ease)}
+.tile--wide{grid-column:1/-1; aspect-ratio:16/10}
+.tile img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease)}
+.tile::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,10,12,0) 40%, rgba(20,10,12,.9) 100%)}
+.tile__t{position:absolute; left:16px; right:16px; bottom:16px; z-index:1; display:flex; flex-direction:column; gap:4px}
+.tile__t b{font:800 24px/1 var(--f-display); letter-spacing:-.03em}
+.tile__t span{font:500 12.5px var(--f-mono); color:#E9DCD9}
+
+/* shop */
+.bar{position:sticky; top:env(safe-area-inset-top, 0px); z-index:20; background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding-block:12px 10px; border-bottom:1px solid var(--line)}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:30; background:var(--paper)}
+.bar__in{display:flex; flex-direction:column; gap:10px}
+.tabs{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:4px; padding:4px; border-radius:999px; background:var(--tag); border:1px solid var(--line)}
+.tab{min-height:42px; border-radius:999px; border:0; background:transparent; color:var(--muted); font:600 13.5px var(--f-body); cursor:pointer; transition:background-color 200ms var(--ease), color 200ms var(--ease)}
+.tab small{font:500 11px var(--f-mono); margin-left:3px; opacity:.7}
+.tab[aria-selected="true"]{background:var(--ink); color:var(--paper)}
+.chips{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin-inline:calc(-1 * var(--gut-l)) calc(-1 * var(--gut-r)); padding-inline:var(--gut-l) var(--gut-r)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none; min-height:44px; padding:0 15px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); font:500 14px var(--f-body); cursor:pointer; transition:background-color 150ms var(--ease), border-color 150ms var(--ease)}
+.chip[aria-pressed="true"]{background:var(--red); border-color:var(--red); color:#fff; font-weight:600}
+.find{display:flex; gap:8px}
+.find input,.find select{min-height:46px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); font:15px var(--f-body); padding:0 16px}
+.find input{flex:1; min-width:0}
+.find input::placeholder{color:var(--muted)}
+.find input:focus,.find select:focus{border-color:var(--red); box-shadow:0 0 0 3px color-mix(in srgb, var(--red) 20%, transparent); outline:none}
+.count{font:500 12.5px var(--f-mono); color:var(--muted); padding-top:16px}
+.grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; padding-top:12px}
+.card{position:relative; display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--line); border-radius:20px; overflow:hidden; text-decoration:none;
+  transition:transform 180ms var(--ease), box-shadow 180ms var(--ease)}
+.card__ph{margin:6px; border-radius:15px; aspect-ratio:1/1; background:#fff; overflow:hidden; max-width:100%}
+.card__ph img{width:100%; height:100%; object-fit:cover; transition:transform 600ms var(--ease)}
+.card__bd{padding:6px 12px 13px; display:flex; flex-direction:column; gap:7px; flex:1}
+.card__nm{font:700 14.5px/1.3 var(--f-body); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.tags{display:flex; flex-wrap:wrap; gap:4px}
+.tg{font:500 11px var(--f-mono); background:var(--tag); color:var(--muted); padding:3px 7px; border-radius:999px}
+.tg--he{background:var(--red); color:#fff}
+.card__pr{margin-top:auto; display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 6px}
+.card__pr .price{font-size:16px; color:var(--red)}
+.card__pr s{font:500 11.5px var(--f-mono); color:var(--muted)}
+.card__ft{font-size:12px; color:var(--muted)}
+.off{position:absolute; top:14px; left:14px; z-index:1; font:700 11.5px var(--f-mono); background:var(--red); color:#fff; padding:4px 8px; border-radius:999px}
+.empty{grid-column:1/-1; text-align:center; color:var(--muted); padding:40px 0}
+.more{display:flex; justify-content:center; padding-top:24px}
+
+footer{padding-block:48px calc(110px + env(safe-area-inset-bottom, 0px)); color:var(--muted); font-size:13.5px}
+footer .wrap{display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--line); padding-top:22px}
+footer a{text-underline-offset:3px}
+
+/* thanh dưới đáy (phone) */
+.dock{position:fixed; left:0; right:0; bottom:0; z-index:40; padding:0 var(--gut-r) calc(12px + env(safe-area-inset-bottom, 0px)) var(--gut-l); transform:translateY(130%); transition:transform 240ms var(--ease); pointer-events:none}
+.dock.show{transform:none}
+.dock__in{pointer-events:auto; max-width:440px; margin:0 auto; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)) auto; gap:4px; padding:5px; border-radius:999px;
+  background:rgba(22,14,15,.82); border:1px solid rgba(255,255,255,.12); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:0 16px 40px -12px rgba(0,0,0,.55)}
+.dock button{min-height:44px; border-radius:999px; border:0; background:transparent; color:#F4E9E7; font:600 13.5px var(--f-body); cursor:pointer; padding:0 6px; white-space:nowrap; transition:background-color 150ms var(--ease)}
+.dock button:active{background:rgba(255,255,255,.1)}
+.dock .red{background:var(--red); color:#fff; display:flex; align-items:center; gap:6px; padding:0 16px}
+.dock svg{width:15px; height:15px}
+
+@media (min-width:640px){
+  .actions{flex-direction:row; justify-content:center; max-width:none}
+  .grid{grid-template-columns:repeat(3, minmax(0,1fr))}
+  .tiles{grid-template-columns:repeat(3, minmax(0,1fr))}
+  .tile--wide{grid-column:auto; aspect-ratio:4/5}
+  .picks{grid-template-columns:repeat(2, minmax(0,1fr))}
+}
+@media (min-width:960px){
+  .nav__links{display:flex}
+  .hero__body{padding-top:72px}
+  .duo{width:min(100%, 560px)}
+  .bubble{font-size:15px}
+  .grid{grid-template-columns:repeat(4, minmax(0,1fr))}
+  .sec{padding-block:100px}
+  .dock{display:none}
+  .wheel__list li{height:84px} .wheel__view::before{height:84px}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important; transition-property:color, background-color, border-color, opacity !important}
+  .wheel__track{height:auto} .wheel__stick{position:static; height:auto; padding-block:64px}
+  .wheel__view{height:auto} .wheel__view::before,.wheel__mark{display:none}
+  .wheel__list{position:static; transform:none !important; display:grid; gap:6px}
+  .wheel__list li{height:auto} .wheel__list button{--s:1 !important; --o:1 !important; font-size:24px; white-space:normal}
+}
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<body>
+<a class="skip" href="#shop">Bỏ qua, tới kệ hàng</a>
+
+<header class="hero" id="top" aria-labelledby="hero-h" data-enter>
+  <div class="wrap">
+    <nav class="nav" aria-label="Chính">
+      <a class="brand" href="#top"><img src="https://down-vn.img.susercontent.com/vn-11134294-820l4-mh4ebuv50kcs1f" alt="" width="30" height="30"><b>Nhập Môn Phím Cơ</b></a>
+      <div class="nav__links"><a href="#picks">Lựa chọn của mình</a><a href="#needs">Theo nhu cầu</a><a href="#shop">Kệ hàng</a><a href="https://www.youtube.com/@nhapmonphimco" target="_blank" rel="noopener">YouTube</a></div>
+      <a class="chipbtn" href="https://www.tiktok.com/@nhapmonphimco" target="_blank" rel="noopener" aria-label="TikTok @nhapmonphimco, 3,4K người theo dõi">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.8a4.3 4.3 0 0 1-1-2.8h-3.1v12.4a2.6 2.6 0 1 1-1.8-2.5V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.3-1.6z"/></svg>3,4K
+      </a>
+    </nav>
+
+    <div class="hero__body">
+      <a class="notice" href="https://www.tiktok.com/@nhapmonphimco" target="_blank" rel="noopener" data-up style="--i:0">
+        <img src="https://down-vn.img.susercontent.com/vn-11134294-820l4-mh4ebuv50kcs1f" alt="" width="24" height="24">
+        <span><b>245 video</b> review phím cơ trên TikTok</span>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h9M9 4l4 4-4 4"/></svg>
+      </a>
+      <h1 id="hero-h">Đừng mua bàn phím cơ đầu tiên <i>trước khi xem</i> trang này.</h1>
+      <p class="lead" data-up style="--i:1">Mình đã lọc từ những món review trên kênh, chỉ giữ lại đồ đáng tiền cho người mới. Chọn theo nhu cầu, bấm là ra giá trên Shopee.</p>
+      <div class="actions" data-up style="--i:2">
+        <a class="btn" href="#picks">Xem lựa chọn của mình
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+        </a>
+        <a class="btn btn--glass" href="#needs">Chọn theo nhu cầu</a>
+      </div>
+    </div>
+
+    <div class="stage" data-up style="--i:3">
+      <div class="seg" role="tablist" aria-label="Xem trước">
+        <button type="button" role="tab" aria-selected="true" data-v="0">Gõ thử</button>
+        <button type="button" role="tab" aria-selected="false" data-v="1">Switch</button>
+        <button type="button" role="tab" aria-selected="false" data-v="2">Keycap</button>
+      </div>
+      <div class="duo">
+        <div class="frame">
+          <div class="frame__in" id="frameIn">
+            <video class="on" muted playsinline loop preload="metadata" poster="assets/hero.jpg" aria-label="Tay gõ trên bàn phím cơ"><source src="assets/hero.mp4" type="video/mp4"></video>
+            <video muted playsinline loop preload="none" poster="assets/sw-poster.jpg" aria-label="Tay cầm switch trong suốt"><source src="assets/sw.mp4" type="video/mp4"></video>
+            <img src="assets/kc-v.jpg" alt="Keycap Game Over đỏ trắng trên bàn phím" loading="lazy">
+          </div>
+          <button class="vid-ctl" id="vidCtl" type="button" aria-label="Dừng video" hidden>
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+          </button>
+        </div>
+        <img class="chibi" src="assets/chibi.webp" alt="Chibi 3D của kênh Nhập Môn Phím Cơ cầm một keycap và vẫy tay" width="640" height="858">
+        <p class="bubble" id="bubble" aria-live="polite">Xem mình gõ thử nè!</p>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="after-hero" aria-hidden="true"></div>
+
+<main>
+  <section class="sec" id="picks" aria-labelledby="picks-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Mới nhập môn?</span>
+        <h2 class="h2" id="picks-h">Đây là những <i>lựa chọn</i> của mình</h2>
+        <p>Hai bàn phím, hai loại switch. Mua đúng 4 món này là đủ để bắt đầu, khỏi phải dò từng shop.</p>
+      </div>
+      <div class="picks" id="pickList"></div>
+    </div>
+  </section>
+
+  <section class="wheel" id="needs" aria-labelledby="needs-h">
+    <div class="wheel__track" id="wheelTrack">
+      <div class="wheel__stick">
+        <div class="wrap wheel__head">
+          <span class="kicker">Theo nhu cầu</span>
+          <h2 class="h2" id="needs-h">Bạn muốn phím thế nào?</h2>
+        </div>
+        <div class="wheel__view">
+          <span class="wheel__mark l" aria-hidden="true"></span><span class="wheel__mark r" aria-hidden="true"></span>
+          <ul class="wheel__list" id="wheelList"></ul>
+        </div>
+        <div class="wrap wheel__foot">
+          <span class="wheel__count" id="wheelCount"></span>
+          <button class="btn btn--ink wheel__go" id="wheelGo" type="button">Xem món phù hợp</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="cats" aria-labelledby="cats-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Theo nhóm</span>
+        <h2 class="h2" id="cats-h">Bàn phím, switch, <i>keycap</i></h2>
+      </div>
+      <div class="tiles">
+        <a class="tile tile--wide" href="#shop" data-goto="kb"><img src="assets/kb.jpg" alt="Bàn phím 65% keycap xanh trắng trên bàn gỗ" loading="lazy" width="720" height="538"><span class="tile__t"><b>Bàn phím</b><span data-sum="kb"></span></span></a>
+        <a class="tile" href="#shop" data-goto="sw"><img src="assets/sw.jpg" alt="Tay cầm một switch màu tím trước bàn phím" loading="lazy" width="720" height="1280"><span class="tile__t"><b>Switch</b><span data-sum="sw"></span></span></a>
+        <a class="tile" href="#shop" data-goto="kc"><img src="assets/kc.jpg" alt="Keycap Game Over đỏ trắng" loading="lazy" width="720" height="414" style="object-position:60% 50%"><span class="tile__t"><b>Keycap</b><span data-sum="kc"></span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop" aria-labelledby="shop-h">
+    <div class="bar">
+      <div class="wrap bar__in">
+        <h2 class="sr" id="shop-h">Kệ hàng</h2>
+        <div class="tabs" role="tablist" id="tabs" aria-label="Nhóm hàng"></div>
+        <div class="chips" id="chips" aria-label="Lọc"></div>
+        <div class="find">
+          <label class="sr" for="q">Tìm sản phẩm</label>
+          <input id="q" type="search" placeholder="Tìm: Milky, F75, Jamon…" autocomplete="off" enterkeyhint="search">
+          <label class="sr" for="sort">Sắp xếp</label>
+          <select id="sort"><option value="sold">Bán chạy</option><option value="asc">Giá thấp</option><option value="desc">Giá cao</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="count" id="count" aria-live="polite"></div>
+      <div class="grid" id="grid"></div>
+      <div class="more"><button class="btn btn--ink" id="more" type="button" hidden>Xem thêm</button></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Link trên trang là link tiếp thị liên kết Shopee: giá không đổi khi anh em mua qua đây, mình nhận một khoản hoa hồng nhỏ để duy trì kênh.</span>
+    <span>Giá tham khảo ngày 14/11/2026, giá và mã giảm mới nhất xem trên Shopee.</span>
+    <span>Cần tư vấn món nào? Bình luận ở <a href="https://www.tiktok.com/@nhapmonphimco" target="_blank" rel="noopener">TikTok</a> hoặc <a href="https://www.youtube.com/@nhapmonphimco" target="_blank" rel="noopener">YouTube</a>.</span>
+  </div>
+</footer>
+
+<nav class="dock" id="dock" aria-label="Đi nhanh tới nhóm hàng">
+  <div class="dock__in">
+    <button type="button" data-goto="kb">Bàn phím</button>
+    <button type="button" data-goto="sw">Switch</button>
+    <button type="button" data-goto="kc">Keycap</button>
+    <button type="button" class="red" id="dockFind"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg>Tìm</button>
+  </div>
+</nav>
+
+<script src="products.js"></script>
+<script>
+const CATS=[{k:"kb",label:"Bàn phím"},{k:"sw",label:"Switch"},{k:"kc",label:"Keycap"},{k:"pk",label:"Phụ kiện"}];
+const FILTERS={
+  kb:[["all","Tất cả"],["lt1","Dưới 1 triệu"],["1to2","1–2 triệu"],["gt2","Trên 2 triệu"],["HE","Rapid Trigger"],["75%","75%"],["65%","60–65%"],["TKL","TKL"],["Full","Full size"],["Kit","Kit / case"]],
+  sw:[["all","Tất cả"],["Linear","Linear"],["Tactile","Tactile"],["Silent","Silent"],["lt5k","Dưới 5k/con"]],
+  kc:[["all","Tất cả"],["lt300","Dưới 300k"],["300to500","300–500k"],["gt500","Trên 500k"]],
+  pk:[["all","Tất cả"]]
+};
+const TEST={all:()=>true,lt1:p=>p.price<1e6,"1to2":p=>p.price>=1e6&&p.price<=2e6,gt2:p=>p.price>2e6,lt5k:p=>p.price<5000,lt300:p=>p.price<3e5,"300to500":p=>p.price>=3e5&&p.price<=5e5,gt500:p=>p.price>5e5,"65%":p=>p.tags.includes("65%")||p.tags.includes("60%")};
+/* bánh xe nhu cầu: chữ hiển thị, nhóm, bộ lọc */
+const NEEDS=[
+  ["Gõ <i>êm</i>, không phiền ai","sw","Silent"],
+  ["Nhẹ tay, gõ cả ngày","sw","Linear"],
+  ["Có <i>khấc</i> rõ khi gõ","sw","Tactile"],
+  ["Bàn phím <i>dưới 1 triệu</i>","kb","lt1"],
+  ["Chơi game, phản hồi <i>nhanh</i>","kb","HE"],
+  ["Gọn bàn, layout 75%","kb","75%"],
+  ["Đủ <i>phím số</i>, full size","kb","Full"],
+  ["Keycap <i>dưới 300k</i>","kc","lt300"]
+];
+const $=s=>document.querySelector(s);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const vnd=n=>n.toLocaleString("vi-VN")+"đ";
+const short=n=>n>=1e6?(n/1e6).toLocaleString("vi-VN",{maximumFractionDigits:1})+" triệu":n>=1e4?Math.round(n/1e3)+"k":vnd(n);
+const img=s=>s.startsWith("http")?s:`https://down-vn.img.susercontent.com/file/${s}_tn.webp`;
+const soldN=s=>{if(!s)return 0;const m=s.match(/([\d.]+)\s*(k)?/i);return m?parseFloat(m[1])*(m[2]?1e3:1):0};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d");
+const byId=Object.fromEntries(P.map(p=>[p.id,p]));
+const LA='target="_blank" rel="sponsored nofollow noopener"';
+const ARROW='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>';
+const inCat=k=>P.filter(p=>p.cat===k);
+const minP=k=>Math.min(...inCat(k).map(p=>p.price));
+const testOf=f=>TEST[f]||(p=>p.tags.includes(f));
+
+document.querySelectorAll("[data-sum]").forEach(el=>{const k=el.dataset.sum;el.textContent=`${inCat(k).length} ${k==="kb"?"mẫu":k==="sw"?"loại":"bộ"} · từ ${k==="sw"?vnd(minP(k))+"/con":short(minP(k))}`});
+
+/* lựa chọn của mình */
+$("#pickList").innerHTML=STARTER.map((s,i)=>{const p=byId[s.id];if(!p)return"";const off=p.orig>p.price;
+  return `<a class="panel" href="${p.link}" ${LA}>
+    <span class="panel__vis"><span class="cross tl"></span><span class="cross tr"></span><span class="cross bl"></span><span class="cross br"></span>
+      <span class="panel__no">0${i+1} / 0${STARTER.length}</span>
+      <span class="panel__img"><img src="${img(p.img)}" alt="${esc(p.name)}" loading="lazy" width="300" height="300"></span></span>
+    <span class="panel__bd">
+      <span class="panel__lbl">${esc(s.label)}</span>
+      <span class="panel__nm">${p.cat==="sw"?"Switch ":"Bàn phím "}${esc(p.name)}</span>
+      <span class="panel__why">${esc(s.why)}</span>
+      ${s.fact?`<span class="panel__fact"><i></i>${esc(s.fact)}</span>`:""}
+      <span class="panel__ft"><span class="price">${vnd(p.price)}${p.cat==="sw"?' <span class="unit">/con</span>':""}${off?`<s>${vnd(p.orig)}</s>`:""}</span>
+        <span class="btn">Xem trên Shopee ${ARROW}</span></span>
+    </span></a>`}).join("");
+
+/* kệ hàng */
+let st={cat:"kb",f:"all",q:"",sort:"sold",shown:12};
+try{const s=JSON.parse(localStorage.getItem("nmpc-shop")||"null");if(s&&CATS.some(c=>c.k===s.cat))st.cat=s.cat}catch(e){}
+if(CATS.some(c=>"#"+c.k===location.hash))st.cat=location.hash.slice(1);
+function setCat(k,f){st.cat=k;st.f=f||"all";st.q="";st.shown=12;$("#q").value="";
+  try{localStorage.setItem("nmpc-shop",JSON.stringify({cat:k}))}catch(e){}render()}
+function renderTabs(){$("#tabs").innerHTML=CATS.map(c=>`<button class="tab" role="tab" type="button" aria-selected="${st.cat===c.k}" data-k="${c.k}">${c.label}<small>${inCat(c.k).length}</small></button>`).join("")}
+function renderChips(){const fs=FILTERS[st.cat];const el=$("#chips");el.hidden=fs.length<2;
+  el.innerHTML=fs.map(([k,l])=>`<button class="chip" type="button" aria-pressed="${st.f===k}" data-f="${k}">${l}</button>`).join("");
+  const on=el.querySelector('[aria-pressed="true"]');if(on)el.scrollLeft=Math.max(0,on.offsetLeft-24)}
+function list(){const t=testOf(st.f);
+  const it=P.filter(p=>st.q?norm(p.name).includes(norm(st.q)):p.cat===st.cat&&t(p));
+  it.sort((a,b)=>st.sort==="asc"?a.price-b.price:st.sort==="desc"?b.price-a.price:soldN(b.sold)-soldN(a.sold));return it}
+function card(p){const off=p.orig>p.price?Math.round((1-p.price/p.orig)*100):0;
+  const tags=p.tags.map(t=>`<span class="tg${t==="HE"?" tg--he":""}">${t==="HE"?"Rapid Trigger":esc(t)}</span>`).join("");
+  return `<a class="card" href="${p.link}" ${LA}>${off>=5?`<span class="off">-${off}%</span>`:""}
+    <span class="card__ph"><img src="${img(p.img)}" alt="${esc(p.name)}" loading="lazy" width="300" height="300"></span>
+    <span class="card__bd"><span class="card__nm">${esc(p.name)}</span>${tags?`<span class="tags">${tags}</span>`:""}
+      <span class="card__pr"><span class="price">${vnd(p.price)}</span>${p.cat==="sw"?'<span class="unit">/con</span>':""}${off>=5?`<s>${vnd(p.orig)}</s>`:""}</span>
+      <span class="card__ft">${p.sold?esc(p.sold)+" đã bán":"Hàng mới"}</span></span></a>`}
+function renderGrid(){const it=list();
+  $("#grid").innerHTML=it.length?it.slice(0,st.shown).map(card).join(""):`<p class="empty">Chưa có món “${esc(st.q)}”. Thử gõ tên hãng hoặc mẫu khác nhé.</p>`;
+  const left=it.length-st.shown;$("#more").hidden=left<=0;$("#more").textContent=`Xem thêm ${Math.min(12,left)} món`;
+  $("#count").textContent=st.q?`${it.length} kết quả cho “${st.q}” trong mọi nhóm`:`${it.length} món · sắp theo ${$("#sort").selectedOptions[0].text.toLowerCase()}`}
+function render(){renderTabs();renderChips();renderGrid()}
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)setCat(b.dataset.k)});
+$("#chips").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(!b)return;st.f=b.dataset.f;st.shown=12;renderChips();renderGrid()});
+$("#q").addEventListener("input",e=>{st.q=e.target.value.trim();st.shown=12;renderGrid()});
+$("#sort").addEventListener("change",e=>{st.sort=e.target.value;renderGrid()});
+$("#more").addEventListener("click",()=>{st.shown+=12;renderGrid()});
+const toShop=()=>$("#shop").scrollIntoView({behavior:reduce?"auto":"smooth"});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-goto]");if(!g)return;e.preventDefault();setCat(g.dataset.goto,g.dataset.filter);toShop()});
+$("#dockFind").addEventListener("click",()=>{toShop();setTimeout(()=>$("#q").focus({preventScroll:true}),450)});
+render();
+
+/* bánh xe nhu cầu */
+(function(){
+  const ul=$("#wheelList"),track=$("#wheelTrack"),count=$("#wheelCount"),go=$("#wheelGo");
+  ul.innerHTML=NEEDS.map(([t,c,f],i)=>`<li data-i="${i}"><button type="button" data-goto="${c}" data-filter="${f}">${t}</button></li>`).join("");
+  track.style.setProperty("--n",NEEDS.length);
+  const items=[...ul.children];let cur=0;
+  const n=i=>{const [,c,f]=NEEDS[i];return P.filter(p=>p.cat===c&&testOf(f)(p)).length};
+  const show=i=>{cur=i;items.forEach((li,j)=>li.classList.toggle("on",j===i));
+    count.innerHTML=`<b>${String(i+1).padStart(2,"0")}</b> / ${String(NEEDS.length).padStart(2,"0")}`;
+    go.textContent=`Xem ${n(i)} món phù hợp`;go.dataset.goto=NEEDS[i][1];go.dataset.filter=NEEDS[i][2]};
+  if(reduce){show(0);items.forEach(li=>li.addEventListener("focusin",()=>show(+li.dataset.i)));return}
+  let raf=0;
+  const tick=()=>{raf=0;const r=track.getBoundingClientRect();const span=r.height-innerHeight;
+    const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));const x=p*(NEEDS.length-1);
+    const h=items[0].offsetHeight;ul.style.transform=`translateY(${-(x*h)-h/2}px)`;
+    items.forEach((li,j)=>{const d=Math.abs(j-x);const b=li.firstChild;b.style.setProperty("--s",Math.max(.62,1-d*.13).toFixed(3));b.style.setProperty("--o",Math.max(.1,1-d*.32).toFixed(3))});
+    const i=Math.round(x);if(i!==cur||!count.textContent)show(i)};
+  addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(tick)},{passive:true});
+  addEventListener("resize",tick);show(0);tick();
+})();
+
+/* hero entrance */
+(function(){
+  const hero=$(".hero"),h1=$("#hero-h");
+  if(reduce||document.documentElement.classList.contains("m-enter-done")){document.documentElement.classList.add("m-enter-done");return}
+  const walk=n=>{[...n.childNodes].forEach(c=>{
+    if(c.nodeType===3){const f=document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){f.append(t);return}
+        const w=document.createElement("span");w.className="w";const i=document.createElement("span");i.textContent=t;w.append(i);f.append(w)});
+      c.replaceWith(f)}else if(c.nodeType===1)walk(c)})};
+  walk(h1);
+  let top=null,ln=-1;h1.querySelectorAll(".w").forEach(w=>{const t=w.offsetTop;if(t!==top){top=t;ln++}w.firstChild.style.setProperty("--ln",Math.min(ln,3))});
+  hero.classList.add("is-entering");document.documentElement.classList.add("m-enter-done");
+  setTimeout(()=>hero.classList.remove("is-entering"),1400);
+})();
+
+/* khung xem trước: tab đổi video/ảnh, nút dừng */
+(function(){
+  const box=$("#frameIn"),els=[...box.children],tabs=[...document.querySelectorAll(".seg button")],tag=$("#bubble"),ctl=$("#vidCtl");
+  const TAGS=["Xem mình gõ thử nè!","Switch nhìn gần là vầy nè!","Bộ keycap trên bàn mình nè!"];
+  const PAUSE='<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>';
+  const PLAY='<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z"/></svg>';
+  let paused=reduce,cur=0;
+  const sync=()=>{const el=els[cur];const isV=el.tagName==="VIDEO";ctl.hidden=!isV||reduce;
+    els.forEach(v=>{if(v.tagName==="VIDEO"&&v!==el)v.pause()});
+    if(isV&&!paused){el.play().catch(()=>{ctl.hidden=true})}
+    ctl.innerHTML=paused?PLAY:PAUSE;ctl.setAttribute("aria-label",paused?"Phát video":"Dừng video")};
+  tabs.forEach(t=>t.addEventListener("click",()=>{cur=+t.dataset.v;tabs.forEach(x=>x.setAttribute("aria-selected",x===t));
+    els.forEach((e,i)=>e.classList.toggle("on",i===cur));tag.textContent=TAGS[cur];sync()}));
+  ctl.addEventListener("click",()=>{paused=!paused;const el=els[cur];if(el.tagName==="VIDEO"){paused?el.pause():el.play()}sync()});
+  sync();
+})();
+
+/* thanh dưới đáy */
+(function(){
+  const dock=$("#dock");let heroGone=false,shopOn=false,wheelOn=false;
+  const upd=()=>dock.classList.toggle("show",heroGone&&!shopOn&&!wheelOn);
+  new IntersectionObserver(([e])=>{heroGone=!e.isIntersecting&&e.boundingClientRect.top<0;upd()}).observe($(".actions"));
+  new IntersectionObserver(([e])=>{shopOn=e.isIntersecting;upd()},{rootMargin:"0px 0px -40% 0px"}).observe($("#shop"));
+  new IntersectionObserver(([e])=>{wheelOn=e.isIntersecting;upd()},{rootMargin:"-30% 0px -30% 0px"}).observe($("#wheelTrack"));
+})();
+</script>
+</body>
+</html>

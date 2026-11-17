@@ -18,6 +18,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=JetBrains+Mono:wght@500;700&display=swap">
 <link rel="preload" as="image" href="assets/hero.jpg">
+<!-- Google Analytics 4: Nhập Môn Phím Cơ - Landing. Thêm ?debug=1 vào URL để xem event trong DebugView -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XHP1ZNRYZM"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+gtag("js",new Date());
+gtag("config","G-XHP1ZNRYZM",/[?&]debug=1/.test(location.search)?{debug_mode:true}:{});
+</script>
 <style>
 /* Kind: tech/product. Ngôn ngữ hình ảnh: màn đầu tối với quầng sáng đỏ hắt từ dưới (đỏ của bàn phím Game Over),
    tiêu đề lớn căn giữa, menu kính mờ dạng viên thuốc, khung xem trước viền dày phát sáng có tab đổi nội dung;
@@ -485,7 +492,7 @@ document.querySelectorAll("[data-sum]").forEach(el=>{const k=el.dataset.sum;el.t
 
 /* lựa chọn của mình */
 $("#pickList").innerHTML=STARTER.map((s,i)=>{const p=byId[s.id];if(!p)return"";const off=p.orig>p.price;
-  return `<a class="panel" href="${p.link}" ${LA}>
+  return `<a class="panel" href="${p.link}" ${LA} data-pid="${p.id}" data-list="picks" data-pos="${i+1}">
     <span class="panel__vis"><span class="cross tl"></span><span class="cross tr"></span><span class="cross bl"></span><span class="cross br"></span>
       <span class="panel__no">0${i+1} / 0${STARTER.length}</span>
       <span class="panel__img"><img src="${img(p.img)}" alt="${esc(p.name)}" loading="lazy" width="300" height="300"></span></span>
@@ -511,9 +518,9 @@ function renderChips(){const fs=FILTERS[st.cat];const el=$("#chips");el.hidden=f
 function list(){const t=testOf(st.f);
   const it=P.filter(p=>st.q?norm(p.name).includes(norm(st.q)):p.cat===st.cat&&t(p));
   it.sort((a,b)=>st.sort==="asc"?a.price-b.price:st.sort==="desc"?b.price-a.price:soldN(b.sold)-soldN(a.sold));return it}
-function card(p){const off=p.orig>p.price?Math.round((1-p.price/p.orig)*100):0;
+function card(p,i){const off=p.orig>p.price?Math.round((1-p.price/p.orig)*100):0;
   const tags=p.tags.map(t=>`<span class="tg${t==="HE"?" tg--he":""}">${t==="HE"?"Rapid Trigger":esc(t)}</span>`).join("");
-  return `<a class="card" href="${p.link}" ${LA}>${off>=5?`<span class="off">-${off}%</span>`:""}
+  return `<a class="card" href="${p.link}" ${LA} data-pid="${p.id}" data-list="shop" data-pos="${i+1}">${off>=5?`<span class="off">-${off}%</span>`:""}
     <span class="card__ph"><img src="${img(p.img)}" alt="${esc(p.name)}" loading="lazy" width="300" height="300"></span>
     <span class="card__bd"><span class="card__nm">${esc(p.name)}</span>${tags?`<span class="tags">${tags}</span>`:""}
       <span class="card__pr"><span class="price">${vnd(p.price)}</span>${p.cat==="sw"?'<span class="unit">/con</span>':""}${off>=5?`<s>${vnd(p.orig)}</s>`:""}</span>
@@ -593,6 +600,56 @@ render();
   new IntersectionObserver(([e])=>{heroGone=!e.isIntersecting&&e.boundingClientRect.top<0;upd()}).observe($(".actions"));
   new IntersectionObserver(([e])=>{shopOn=e.isIntersecting;upd()},{rootMargin:"0px 0px -40% 0px"}).observe($("#shop"));
   new IntersectionObserver(([e])=>{wheelOn=e.isIntersecting;upd()},{rootMargin:"-30% 0px -30% 0px"}).observe($("#wheelTrack"));
+})();
+
+/* đo lường GA4: mọi event đi qua track() */
+(function(){
+  const CAT_VI={kb:"Bàn phím",sw:"Switch",kc:"Keycap",pk:"Phụ kiện"};
+  const track=(name,params)=>{try{if(typeof gtag==="function")gtag("event",name,params||{})}catch(e){}};
+  const itemOf=(p,list,pos)=>({item_id:p.id,item_name:p.name,item_category:CAT_VI[p.cat]||p.cat,item_list_name:list,index:pos,price:p.price,quantity:1});
+  const area=el=>el.closest("footer")?"footer":el.closest(".nav")?"nav":el.closest(".dock")?"dock":el.closest("#picks")?"picks":el.closest(".hero")?"hero":"other";
+
+  document.addEventListener("click",e=>{
+    /* 1. bấm sang Shopee: chỉ số quan trọng nhất */
+    const a=e.target.closest("a[data-pid]");
+    if(a){const p=byId[a.dataset.pid];if(!p)return;const list=a.dataset.list,pos=+a.dataset.pos||0;
+      const base={item_id:p.id,item_name:p.name,item_category:CAT_VI[p.cat],list_name:list,position:pos,value:p.price,currency:"VND"};
+      if(list==="shop")Object.assign(base,{shop_tab:CAT_VI[st.cat],shop_filter:st.f,shop_sort:st.sort,search_term:st.q||undefined});
+      track("affiliate_click",base);
+      track("select_item",{item_list_name:list,items:[itemOf(p,list,pos)]});
+      return}
+    /* 2. lối tắt vào kệ hàng: bánh xe nhu cầu, ô danh mục, thanh dưới đáy */
+    const g=e.target.closest("[data-goto]");
+    if(g){const source=g.id==="wheelGo"?"wheel_button":g.closest("#wheelList")?"wheel_item":g.closest(".tile")?"category_tile":g.closest(".dock")?"dock":"other";
+      const need=source.startsWith("wheel")?NEEDS.find(n=>n[1]===g.dataset.goto&&n[2]===(g.dataset.filter||"all")):null;
+      track("shortcut_click",{source,item_category:CAT_VI[g.dataset.goto],shop_filter:g.dataset.filter||"all",need_label:need?need[0].replace(/<[^>]+>/g,""):undefined,result_count:list().length});return}
+    if(e.target.closest("#dockFind")){track("shortcut_click",{source:"dock_search"});return}
+    /* 3. kệ hàng: tab, bộ lọc, xem thêm */
+    const inside=id=>e.composedPath().some(n=>n.id===id); /* nút bị vẽ lại sau khi bấm nên dò theo đường đi của cú bấm */
+    const tab=inside("tabs")&&e.target.closest("[data-k]");if(tab){track("shop_tab_select",{item_category:CAT_VI[tab.dataset.k]});return}
+    const chip=inside("chips")&&e.target.closest("[data-f]");if(chip){track("shop_filter_select",{item_category:CAT_VI[st.cat],shop_filter:chip.dataset.f,result_count:list().length});return}
+    if(e.target.closest("#more")){track("shop_load_more",{item_category:CAT_VI[st.cat],shown:st.shown});return}
+    /* 4. khung xem trước và nút video */
+    const seg=e.target.closest(".seg [data-v]");if(seg){track("preview_tab_select",{preview_tab:["typing","switch","keycap"][+seg.dataset.v]});return}
+    if(e.target.closest("#vidCtl")){track("preview_video_toggle",{action:$("#vidCtl").getAttribute("aria-label")==="Phát video"?"pause":"play"});return}
+    /* 5. link trong trang và mạng xã hội */
+    const l=e.target.closest("a[href]");if(!l)return;const h=l.getAttribute("href");
+    if(/tiktok\.com/.test(h))track("social_click",{platform:"tiktok",link_area:area(l)});
+    else if(/youtube\.com/.test(h))track("social_click",{platform:"youtube",link_area:area(l)});
+    else if(h.startsWith("#"))track(l.closest(".actions")?"hero_cta_click":"nav_click",{target_section:h.slice(1),link_area:area(l)});
+  });
+
+  /* sắp xếp và tìm kiếm */
+  $("#sort").addEventListener("change",()=>track("shop_sort",{shop_sort:st.sort,item_category:CAT_VI[st.cat]}));
+  let qt=0,lastQ="";
+  $("#q").addEventListener("input",()=>{clearTimeout(qt);qt=setTimeout(()=>{const q=st.q;if(q.length<2||q===lastQ)return;lastQ=q;
+    const n=list().length;track("search",{search_term:q,result_count:n});if(!n)track("search_no_result",{search_term:q})},1200)});
+
+  /* người dùng kéo tới phần nào của trang (mỗi phần đếm 1 lần) */
+  const seen=new Set();
+  const io=new IntersectionObserver(es=>es.forEach(en=>{const id=en.target.id||en.target.tagName.toLowerCase();
+    if(en.isIntersecting&&!seen.has(id)){seen.add(id);track("section_view",{section_name:id});io.unobserve(en.target)}}),{rootMargin:"-45% 0px -45% 0px"});
+  ["#picks","#needs","#cats","#shop","footer"].forEach(s=>{const el=$(s);if(el)io.observe(el)});
 })();
 </script>
 </body>

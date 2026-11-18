@@ -207,6 +207,7 @@ html.m-enter:not(.m-enter-done) .hero [data-up]{opacity:0; transform:translateY(
 /* moment: bánh xe nhu cầu */
 .wheel{position:relative}
 .wheel__track{height:calc(var(--n, 8) * 34svh + 100svh)}
+@media (max-width:959px){ .wheel__track{height:calc(var(--n, 8) * 20svh + 100svh)} }
 .wheel__stick{position:sticky; top:0; height:100svh; display:flex; flex-direction:column; justify-content:center; overflow:hidden}
 .wheel__head{text-align:center; display:flex; flex-direction:column; gap:10px; align-items:center; padding-bottom:18px}
 .wheel__view{position:relative; height:min(52svh, 440px)}
@@ -456,22 +457,23 @@ footer a{text-underline-offset:3px}
 <script>
 const CATS=[{k:"kb",label:"Bàn phím"},{k:"sw",label:"Switch"},{k:"kc",label:"Keycap"},{k:"pk",label:"Phụ kiện"}];
 const FILTERS={
-  kb:[["all","Tất cả"],["lt1","Dưới 1 triệu"],["1to2","1–2 triệu"],["gt2","Trên 2 triệu"],["HE","Rapid Trigger"],["75%","75%"],["65%","60–65%"],["TKL","TKL"],["Full","Full size"],["Kit","Kit / case"]],
-  sw:[["all","Tất cả"],["Linear","Linear"],["Tactile","Tactile"],["Silent","Silent"],["lt5k","Dưới 5k/con"]],
+  kb:[["all","Tất cả"],["lt1","Dưới 1 triệu"],["1to2","1–2 triệu"],["gt2","Trên 2 triệu"],["HE","Rapid Trigger"],["75%","75%"],["65%","60–65%"],["le75","75/65%"],["TKL","TKL"],["Full","Full size"],["Nhôm","Vỏ nhôm"],["Kit","Kit / case"]],
+  sw:[["all","Tất cả"],["Creamy","Âm Creamy"],["Thocky","Âm Thocky"],["Clacky","Âm Clacky"],["Linear","Linear"],["Tactile","Tactile"],["Silent","Silent"],["lt5k","Dưới 5k/con"]],
   kc:[["all","Tất cả"],["lt300","Dưới 300k"],["300to500","300–500k"],["gt500","Trên 500k"]],
   pk:[["all","Tất cả"]]
 };
-const TEST={all:()=>true,lt1:p=>p.price<1e6,"1to2":p=>p.price>=1e6&&p.price<=2e6,gt2:p=>p.price>2e6,lt5k:p=>p.price<5000,lt300:p=>p.price<3e5,"300to500":p=>p.price>=3e5&&p.price<=5e5,gt500:p=>p.price>5e5,"65%":p=>p.tags.includes("65%")||p.tags.includes("60%")};
+const TEST={all:()=>true,lt1:p=>p.price<1e6,"1to2":p=>p.price>=1e6&&p.price<=2e6,gt2:p=>p.price>2e6,lt5k:p=>p.price<5000,lt300:p=>p.price<3e5,"300to500":p=>p.price>=3e5&&p.price<=5e5,gt500:p=>p.price>5e5,"65%":p=>p.tags.includes("65%")||p.tags.includes("60%"),le75:p=>["75%","65%","60%"].some(t=>p.tags.includes(t))};
 /* bánh xe nhu cầu: chữ hiển thị, nhóm, bộ lọc */
 const NEEDS=[
-  ["Gõ <i>êm</i>, không phiền ai","sw","Silent"],
-  ["Nhẹ tay, gõ cả ngày","sw","Linear"],
-  ["Có <i>khấc</i> rõ khi gõ","sw","Tactile"],
-  ["Bàn phím <i>dưới 1 triệu</i>","kb","lt1"],
-  ["Chơi game, phản hồi <i>nhanh</i>","kb","HE"],
-  ["Gọn bàn, layout 75%","kb","75%"],
-  ["Đủ <i>phím số</i>, full size","kb","Full"],
-  ["Keycap <i>dưới 300k</i>","kc","lt300"]
+  ["Switch âm <i>Creamy</i>","sw","Creamy"],
+  ["Switch âm <i>Thocky</i>","sw","Thocky"],
+  ["Switch âm <i>Clacky</i>","sw","Clacky"],
+  ["Switch <i>Silent</i>","sw","Silent"],
+  ["Bàn phím <i>fullsize</i>, đủ phím số","kb","Full"],
+  ["Bàn phím <i>TKL</i> phổ thông","kb","TKL"],
+  ["Bàn phím layout <i>75%/65%</i> gọn đẹp","kb","le75"],
+  ["Bàn phím khung <i>nhôm</i>","kb","Nhôm"],
+  ["Keycap <i>đẹp</i>","kc","all"]
 ];
 const $=s=>document.querySelector(s);
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -551,6 +553,11 @@ render();
     count.innerHTML=`<b>${String(i+1).padStart(2,"0")}</b> / ${String(NEEDS.length).padStart(2,"0")}`;
     go.textContent=`Xem ${n(i)} món phù hợp`;go.dataset.goto=NEEDS[i][1];go.dataset.filter=NEEDS[i][2]};
   if(reduce){show(0);items.forEach(li=>li.addEventListener("focusin",()=>show(+li.dataset.i)));return}
+  /* tiêu đề dài: thu nhỏ chữ cho vừa một dòng thay vì xuống dòng */
+  const fit=()=>items.forEach(li=>{const b=li.firstChild;b.style.fontSize="";const cs=getComputedStyle(li);
+    const av=li.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight),w=b.offsetWidth;
+    if(w>av)b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)*av/w).toFixed(1)+"px"});
+  fit();if(document.fonts)document.fonts.ready.then(fit);addEventListener("resize",fit);
   let raf=0;
   const tick=()=>{raf=0;const r=track.getBoundingClientRect();const span=r.height-innerHeight;
     const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));const x=p*(NEEDS.length-1);

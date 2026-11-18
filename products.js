@@ -160,6 +160,16 @@ const P = [
 ["154","Mintcaps Mario","kc",["Cherry"],678900,678900,"1","vn-11134201-81ztc-msw9wly5qebte5","https://s.shopee.vn/1W0pbL1QF5"]
 ].map(r=>({id:r[0],name:r[1],cat:r[2],tags:r[3],price:r[4],orig:r[5],sold:r[6],img:r[7],link:r[8]}));
 
+/* Tag bổ sung theo id sản phẩm. Thêm/bớt: sửa danh sách id bên dưới.
+   Âm thanh switch do kênh tự xếp loại. Silent dùng tag "Silent" có sẵn ở dòng dữ liệu. */
+const EXTRA_TAGS = {
+  Creamy: ["15","16","17","19","21","24","99","125","106","141","22","55","57","126","132","136","138","127","133","134"],
+  Thocky: ["58","56","59","51","114","123","103","20","122","104","105","135","139","111","129","52","18"],
+  Clacky: ["23","53","48","49","54","102","109","110","121","118","124","100","115","116","117","119"],
+  "Nhôm": ["0","2","3","41","46","97","47","149","62","63","64","65","144"]
+};
+Object.entries(EXTRA_TAGS).forEach(([tag,ids])=>ids.forEach(id=>{const p=P.find(x=>x.id===id);if(p&&!p.tags.includes(tag))p.tags.unshift(tag)}));
+
 /* "Lựa chọn của mình" cho người mới nhập môn: id + nhãn + lý do + điểm nhấn (số liệu từ Shopee ngày 14/11/2026).
    Lý do nên được viết lại bằng giọng của kênh. video: link video review nếu có. */
 const STARTER = [
